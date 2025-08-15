@@ -446,9 +446,19 @@ const SpatialMemoryMainTask = () => {
     setPhase('study');
   };
 
-  // Navigate to the next task (Ecological Spatial Memory)
+  // Navigate to the next step after sequence end: export all, then show questionnaire button
   const handleNextTask = () => {
-    navigate('/ecological-spatial');
+    // End of sequence; navigate to home or results
+    navigate('/');
+  };
+
+  const handleExportAll = () => {
+    try {
+      const { exportAllTaskResults } = require('../../utils/taskResults');
+      exportAllTaskResults();
+    } catch (e) {
+      console.error('Export all failed:', e);
+    }
   };
 
   const exportResults = () => {
@@ -713,39 +723,22 @@ const SpatialMemoryMainTask = () => {
             <div className="completion-screen">
               <h2>Task Complete!</h2>
               
-              <button 
-                onClick={handleNextTask} 
-                style={{
-                  fontSize: '1.5rem',
-                  padding: '16px 28px 16px 32px',
-                  fontWeight: 'bold',
-                  background: 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '12px',
-                  cursor: 'pointer',
-                  boxShadow: '0 4px 15px rgba(0, 0, 0, 0.15)',
-                  margin: '30px auto',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  minWidth: '340px',
-                  transition: 'all 0.3s ease',
-                  position: 'relative',
-                  overflow: 'hidden'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.2)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.15)';
-                }}
-              >
-                Next Task: Ecological Spatial Memory
-                <span style={{ marginLeft: '10px', fontSize: '1.6rem' }}>→</span>
-              </button>
+              <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                <button 
+                  onClick={handleExportAll} 
+                  className="export-button"
+                  style={{ minWidth: '260px' }}
+                >
+                  Export All Task Results (CSV)
+                </button>
+                <button 
+                  onClick={() => navigate('/combined-questionnaire')} 
+                  className="menu-button"
+                  style={{ minWidth: '260px' }}
+                >
+                  Proceed to Questionnaire
+                </button>
+              </div>
             </div>
           )}
         </div>

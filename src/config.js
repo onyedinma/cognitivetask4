@@ -4,26 +4,6 @@
 
 // Task Configuration
 export const TASK_CONFIG = {
-  // Object Span Task Config
-  objectSpan: {
-    minSpan: 3,           // Starting span length
-    maxSpan: 9,           // Maximum span length
-    displayTime: 1000,     // Time each object is displayed (ms)
-    blankTime: 1000,       // Time between objects (ms)
-    mainTaskRounds: 8,     // Number of rounds in the main task
-    objectMapping: {
-      1: { name: 'bread', image: '/images/Bread.png' },
-      2: { name: 'car', image: '/images/Car.png' },
-      3: { name: 'books', image: '/images/Books.png' },
-      4: { name: 'bag', image: '/images/Bag.png' },
-      5: { name: 'chair', image: '/images/Chair.png' },
-      6: { name: 'computer', image: '/images/Computer.png' },
-      7: { name: 'money', image: '/images/Money.png' },
-      8: { name: 'pot', image: '/images/Pot.png' },
-      9: { name: 'shoes', image: '/images/Shoes.png' }
-    }
-  },
-  
   // Digit Span Task Config
   digitSpan: {
     minSpan: 3,
@@ -41,26 +21,6 @@ export const TASK_CONFIG = {
 
 // Data Format Specifications for Result Export
 export const EXPORT_FORMATS = {
-  objectSpan: {
-    csv: {
-      headers: [
-        'participant_id',
-        'counter_balance',
-        'task_type',
-        'span_mode',
-        'trial_number',
-        'timestamp',
-        'span_length',
-        'attempt_number',
-        'is_correct',
-        'max_span_reached',
-        'total_correct_sequences'
-      ],
-      filename: (taskType, studentId, timestamp) => 
-        `${taskType}_results_${studentId}_${timestamp}.csv`
-    }
-  },
-  
   digitSpan: {
     csv: {
       headers: [

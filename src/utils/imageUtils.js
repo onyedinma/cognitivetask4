@@ -36,22 +36,6 @@ export const getPublicImages = () => {
 };
 
 /**
- * Creates an array of all object images used in object span tasks
- * @returns {Array} Array of image URLs
- */
-export const getObjectSpanImages = () => {
-  return getPublicImages();
-};
-
-/**
- * Creates an array of all ecological spatial images
- * @returns {Array} Array of image URLs
- */
-export const getEcologicalSpatialImages = () => {
-  return getPublicImages();
-};
-
-/**
  * Get all image paths from assets for preloading
  * @returns {Array} Array of all image URLs to be preloaded
  */
@@ -113,8 +97,6 @@ export const importAllImages = (requireContext) => {
 
 const imageUtils = {
   getNoCacheUrl,
-  getObjectSpanImages,
-  getEcologicalSpatialImages,
   getAllGameImages,
   preloadImages,
   importAllImages

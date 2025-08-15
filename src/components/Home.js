@@ -28,6 +28,13 @@ const Home = () => {
     setShowMenu(!showMenu);
   };
 
+  const handleCardKey = (e, path) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      navigate(path);
+    }
+  };
+
   return (
     <div className="home-container">
       <header className="home-header">
@@ -51,7 +58,7 @@ const Home = () => {
               <div className="task-flow-icon memory-icon">1</div>
               <div className="task-flow-label">
                 <h3>Working Memory</h3>
-                <p>Digit & Object</p>
+                <p>Digit Span</p>
               </div>
             </div>
             <div className="task-flow-arrow">→</div>
@@ -72,15 +79,7 @@ const Home = () => {
             </div>
             <div className="task-flow-arrow">→</div>
             <div className="task-flow-item">
-              <div className="task-flow-icon reasoning-icon">4</div>
-              <div className="task-flow-label">
-                <h3>Reasoning</h3>
-                <p>Logic Tasks</p>
-              </div>
-            </div>
-            <div className="task-flow-arrow">→</div>
-            <div className="task-flow-item">
-              <div className="task-flow-icon questionnaire-icon">5</div>
+              <div className="task-flow-icon questionnaire-icon">4</div>
               <div className="task-flow-label">
                 <h3>Questionnaires</h3>
                 <p>Daily Function</p>
@@ -103,34 +102,55 @@ const Home = () => {
         {/* Developer Menu Toggle */}
         <div className="dev-menu-section">
           <button 
-            className="toggle-menu-button" 
+            className={`toggle-menu-button ${showMenu ? 'open' : ''}`} 
             onClick={toggleMenu}
             aria-expanded={showMenu}
             aria-controls="task-menu"
           >
-            {showMenu ? 'Hide Task Menu' : 'Individual Tasks (Dev)'}
-        </button>
+            <span className="dev-badge">DEV</span>
+            <span className="toggle-label">Individual Tasks</span>
+            <span className="caret" aria-hidden>▾</span>
+          </button>
+          <p className="dev-note">Quickly jump to a specific task for testing or demos.</p>
         
           {showMenu && (
             <div id="task-menu" className="task-grid">
               <div className="task-category">
                 <h3 className="task-category-title">Working Memory Tasks</h3>
                 <div className="task-cards-row">
-                  <div className="task-card" onClick={() => navigate('/digit-span/forward')}>
-                    <h3>Forward Digit Span</h3>
-                    <p>Remember digits</p>
+                  <div 
+                    className="task-card" 
+                    onClick={() => navigate('/digit-span/forward')}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => handleCardKey(e, '/digit-span/forward')}
+                    aria-label="Forward Digit Span"
+                  >
+                    <div className="task-card-header">
+                      <div className="task-card-icon memory">🧠</div>
+                      <div>
+                        <h3>Forward Digit Span</h3>
+                        <p>Remember digits</p>
+                      </div>
+                    </div>
+                    <div className="task-card-footer">Start →</div>
                   </div>
-                  <div className="task-card" onClick={() => navigate('/digit-span/backward')}>
-                    <h3>Backward Digit Span</h3>
-                    <p>Reverse digits</p>
-                  </div>
-                  <div className="task-card" onClick={() => navigate('/object-span/forward')}>
-                    <h3>Forward Object Span</h3>
-                    <p>Remember objects</p>
-                  </div>
-                  <div className="task-card" onClick={() => navigate('/object-span/backward')}>
-                    <h3>Backward Object Span</h3>
-                    <p>Reverse objects</p>
+                  <div 
+                    className="task-card" 
+                    onClick={() => navigate('/digit-span/backward')}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => handleCardKey(e, '/digit-span/backward')}
+                    aria-label="Backward Digit Span"
+                  >
+                    <div className="task-card-header">
+                      <div className="task-card-icon memory">🔁</div>
+                      <div>
+                        <h3>Backward Digit Span</h3>
+                        <p>Reverse digits</p>
+                      </div>
+                    </div>
+                    <div className="task-card-footer">Start →</div>
                   </div>
                 </div>
               </div>
@@ -138,39 +158,62 @@ const Home = () => {
               <div className="task-category">
                 <h3 className="task-category-title">Visual & Spatial Tasks</h3>
                 <div className="task-cards-row">
-                  <div className="task-card" onClick={() => navigate('/shape-counting')}>
-                    <h3>Shape Counting</h3>
-                    <p>Count shapes</p>
+                  <div 
+                    className="task-card" 
+                    onClick={() => navigate('/shape-counting')}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => handleCardKey(e, '/shape-counting')}
+                    aria-label="Shape Counting"
+                  >
+                    <div className="task-card-header">
+                      <div className="task-card-icon visual">🔺</div>
+                      <div>
+                        <h3>Shape Counting</h3>
+                        <p>Count shapes</p>
+                      </div>
+                    </div>
+                    <div className="task-card-footer">Start →</div>
                   </div>
-                  <div className="task-card" onClick={() => navigate('/counting-game')}>
-                    <h3>Counting Game</h3>
-                    <p>Count objects</p>
-                  </div>
-                  <div className="task-card" onClick={() => navigate('/spatial-memory')}>
-                    <h3>Spatial Memory</h3>
-                    <p>Remember positions</p>
-                  </div>
-                  <div className="task-card" onClick={() => navigate('/ecological-spatial')}>
-                    <h3>Ecological Spatial</h3>
-                    <p>Object locations</p>
+                  <div 
+                    className="task-card" 
+                    onClick={() => navigate('/spatial-memory')}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => handleCardKey(e, '/spatial-memory')}
+                    aria-label="Spatial Memory"
+                  >
+                    <div className="task-card-header">
+                      <div className="task-card-icon spatial">🗺️</div>
+                      <div>
+                        <h3>Spatial Memory</h3>
+                        <p>Remember positions</p>
+                      </div>
+                    </div>
+                    <div className="task-card-footer">Start →</div>
                   </div>
                 </div>
               </div>
 
               <div className="task-category">
-                <h3 className="task-category-title">Reasoning & Questionnaires</h3>
+                <h3 className="task-category-title">Questionnaires</h3>
                 <div className="task-cards-row">
-                  <div className="task-card" onClick={() => navigate('/deductive-reasoning')}>
-                    <h3>Deductive Reasoning</h3>
-                    <p>Logical puzzles</p>
-                  </div>
-                  <div className="task-card" onClick={() => navigate('/ecological-deductive')}>
-                    <h3>Ecological Deductive</h3>
-                    <p>Scenario reasoning</p>
-                  </div>
-                  <div className="task-card" onClick={() => navigate('/combined-questionnaire')}>
-                    <h3>Questionnaires</h3>
-                    <p>Daily functioning</p>
+                  <div 
+                    className="task-card" 
+                    onClick={() => navigate('/combined-questionnaire')}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => handleCardKey(e, '/combined-questionnaire')}
+                    aria-label="Questionnaires"
+                  >
+                    <div className="task-card-header">
+                      <div className="task-card-icon questionnaire">📝</div>
+                      <div>
+                        <h3>Questionnaires</h3>
+                        <p>Daily functioning</p>
+                      </div>
+                    </div>
+                    <div className="task-card-footer">Open →</div>
                   </div>
                 </div>
               </div>

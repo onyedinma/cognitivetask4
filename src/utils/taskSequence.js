@@ -7,21 +7,15 @@
 export const TASK_SEQUENCE = [
   { id: 'digit-span-forward', path: '/digit-span/forward', name: 'Digit Span Forward' },
   { id: 'digit-span-backward', path: '/digit-span/backward', name: 'Digit Span Backward' },
-  { id: 'object-span-forward', path: '/object-span/forward', name: 'Object Span Forward' },
-  { id: 'object-span-backward', path: '/object-span/backward', name: 'Object Span Backward' },
   { id: 'shape-counting', path: '/shape-counting', name: 'Shape Counting Task' },
-  { id: 'counting-game', path: '/counting-game', name: 'Counting Game (Ecological)' },
-  { id: 'spatial-memory', path: '/spatial-memory', name: 'Spatial Working Memory' },
-  { id: 'ecological-spatial', path: '/ecological-spatial', name: 'Ecological Spatial Memory' },
-  { id: 'deductive-reasoning', path: '/deductive-reasoning', name: 'Deductive Reasoning' },
-  { id: 'ecological-deductive', path: '/ecological-deductive', name: 'Ecological Deductive Reasoning' },
-  { id: 'combined-questionnaire', path: '/combined-questionnaire', name: 'Questionnaires' }
+  { id: 'spatial-memory', path: '/spatial-memory', name: 'Spatial Working Memory' }
 ];
 
 // Also define mapping of main tasks to their subtasks (for navigating from main task to first subtask)
 export const MAIN_TASK_MAPPING = {
   'digit-span': 'digit-span-forward',
-  'object-span': 'object-span-forward'
+  'shape-counting': 'shape-counting',
+  'spatial-memory': 'spatial-memory'
 };
 
 /**

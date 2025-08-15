@@ -260,8 +260,8 @@ const DigitSpanMainTask = () => {
     if (!isBackward) {
       navigate('/digit-span/backward');
     } else {
-      // If in backward mode, navigate to the next task in sequence
-      navigate('/object-span/forward');
+      // If in backward mode, navigate to the next task in sequence (Shape Counting)
+      navigate('/shape-counting');
     }
   };
   

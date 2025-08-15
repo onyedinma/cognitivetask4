@@ -8,11 +8,6 @@ import GlobalImageLoader from './components/common/GlobalImageLoader';
 // Task components
 import Home from './components/Home';
 import ParticipantInfo from './components/ParticipantInfo';
-import ObjectSpanTask from './components/ObjectSpan/ObjectSpanTask';
-import ForwardObjectSpan from './components/ObjectSpan/ForwardObjectSpan';
-import BackwardObjectSpan from './components/ObjectSpan/BackwardObjectSpan';
-import ObjectSpanPractice from './components/ObjectSpan/ObjectSpanPractice';
-import ObjectSpanMainTask from './components/ObjectSpan/ObjectSpanMainTask';
 import DigitSpanTask from './components/DigitSpan/DigitSpanTask';
 import ForwardDigitSpan from './components/DigitSpan/ForwardDigitSpan';
 import BackwardDigitSpan from './components/DigitSpan/BackwardDigitSpan';
@@ -22,24 +17,9 @@ import ShapeCountingTask from './components/ShapeCounting/ShapeCountingTask';
 import ShapeCountingInstructions from './components/ShapeCounting/ShapeCountingInstructions';
 import ShapeCountingPractice from './components/ShapeCounting/ShapeCountingPractice';
 import ShapeCountingMainTask from './components/ShapeCounting/ShapeCountingMainTask';
-import CountingGameTask from './components/CountingGame/CountingGameTask';
-import CountingGameInstructions from './components/CountingGame/CountingGameInstructions';
-import CountingGamePractice from './components/CountingGame/CountingGamePractice';
-import CountingGameMainTask from './components/CountingGame/CountingGameMainTask';
 import SpatialMemoryTask from './components/SpatialMemory/SpatialMemoryTask';
 import SpatialMemoryPractice from './components/SpatialMemory/SpatialMemoryPractice';
 import SpatialMemoryMainTask from './components/SpatialMemory/SpatialMemoryMainTask';
-import EcologicalSpatialTask from './components/EcologicalSpatial/EcologicalSpatialTask';
-import EcologicalSpatialPractice from './components/EcologicalSpatial/EcologicalSpatialPractice';
-import EcologicalSpatialMainTask from './components/EcologicalSpatial/EcologicalSpatialMainTask';
-import { 
-  EcologicalDeductiveReasoningTask, 
-  EcologicalDeductiveReasoningPractice, 
-  EcologicalDeductiveReasoningMainTask 
-} from './components/EcologicalDeductiveReasoning';
-import DeductiveReasoningTask from './components/DeductiveReasoning/DeductiveReasoningTask';
-import DeductiveReasoningPractice from './components/DeductiveReasoning/DeductiveReasoningPractice';
-import DeductiveReasoningMainTask from './components/DeductiveReasoning/DeductiveReasoningMainTask';
 // Questionnaire component
 import CombinedQuestionnaire from './components/Questionnaires/Combined/CombinedQuestionnaire';
 
@@ -147,51 +127,6 @@ function App() {
               </RequireParticipantInfo>
             } />
             
-            {/* Object Span Task Routes - All Protected */}
-            <Route path="/object-span" element={
-              <RequireParticipantInfo>
-                <TaskWrapper>
-                  <ObjectSpanTask />
-                </TaskWrapper>
-              </RequireParticipantInfo>
-            } />
-            
-            {/* Forward Object Span */}
-            <Route path="/object-span/forward" element={
-              <RequireParticipantInfo>
-                <TaskWrapper>
-                  <ForwardObjectSpan />
-                </TaskWrapper>
-              </RequireParticipantInfo>
-            } />
-            
-            {/* Backward Object Span */}
-            <Route path="/object-span/backward" element={
-              <RequireParticipantInfo>
-                <TaskWrapper>
-                  <BackwardObjectSpan />
-                </TaskWrapper>
-              </RequireParticipantInfo>
-            } />
-            
-            {/* Object Span Practice */}
-            <Route path="/object-span/:direction/practice" element={
-              <RequireParticipantInfo>
-                <TaskWrapper>
-                  <ObjectSpanPractice />
-                </TaskWrapper>
-              </RequireParticipantInfo>
-            } />
-            
-            {/* Object Span Main Task */}
-            <Route path="/object-span/:direction/task" element={
-              <RequireParticipantInfo>
-                <TaskWrapper>
-                  <ObjectSpanMainTask />
-                </TaskWrapper>
-              </RequireParticipantInfo>
-            } />
-            
             {/* Digit Span Task Routes - All Protected */}
             <Route path="/digit-span" element={
               <RequireParticipantInfo>
@@ -270,39 +205,6 @@ function App() {
               </RequireParticipantInfo>
             } />
             
-            {/* Counting Game Routes (Ecological Shape Counting) */}
-            <Route path="/counting-game" element={
-              <RequireParticipantInfo>
-                <TaskWrapper>
-                  <CountingGameTask />
-                </TaskWrapper>
-              </RequireParticipantInfo>
-            } />
-            
-            <Route path="/counting-game/instructions" element={
-              <RequireParticipantInfo>
-                <TaskWrapper>
-                  <CountingGameInstructions />
-                </TaskWrapper>
-              </RequireParticipantInfo>
-            } />
-            
-            <Route path="/counting-game/practice" element={
-              <RequireParticipantInfo>
-                <TaskWrapper>
-                  <CountingGamePractice />
-                </TaskWrapper>
-              </RequireParticipantInfo>
-            } />
-            
-            <Route path="/counting-game/task" element={
-              <RequireParticipantInfo>
-                <TaskWrapper>
-                  <CountingGameMainTask />
-                </TaskWrapper>
-              </RequireParticipantInfo>
-            } />
-            
             {/* Spatial Memory Task Routes */}
             <Route path="/spatial-memory" element={
               <RequireParticipantInfo>
@@ -324,81 +226,6 @@ function App() {
               <RequireParticipantInfo>
                 <TaskWrapper>
                   <SpatialMemoryMainTask />
-                </TaskWrapper>
-              </RequireParticipantInfo>
-            } />
-            
-            {/* Restore Ecological Spatial Memory Routes */}
-            <Route path="/ecological-spatial" element={
-              <RequireParticipantInfo>
-                <TaskWrapper>
-                  <EcologicalSpatialTask />
-                </TaskWrapper>
-              </RequireParticipantInfo>
-            } />
-            
-            <Route path="/ecological-spatial/practice" element={
-              <RequireParticipantInfo>
-                <TaskWrapper>
-                  <EcologicalSpatialPractice />
-                </TaskWrapper>
-              </RequireParticipantInfo>
-            } />
-            
-            <Route path="/ecological-spatial/task" element={
-              <RequireParticipantInfo>
-                <TaskWrapper>
-                  <EcologicalSpatialMainTask />
-                </TaskWrapper>
-              </RequireParticipantInfo>
-            } />
-            
-            {/* Keep Ecological Deductive Reasoning Task */}
-            <Route path="/ecological-deductive" element={
-              <RequireParticipantInfo>
-                <TaskWrapper>
-                  <EcologicalDeductiveReasoningTask />
-                </TaskWrapper>
-              </RequireParticipantInfo>
-            } />
-            
-            <Route path="/ecological-deductive/practice" element={
-              <RequireParticipantInfo>
-                <TaskWrapper>
-                  <EcologicalDeductiveReasoningPractice />
-                </TaskWrapper>
-              </RequireParticipantInfo>
-            } />
-            
-            <Route path="/ecological-deductive/task" element={
-              <RequireParticipantInfo>
-                <TaskWrapper>
-                  <EcologicalDeductiveReasoningMainTask />
-                </TaskWrapper>
-              </RequireParticipantInfo>
-            } />
-            
-            {/* Deductive Reasoning Task Routes */}
-            <Route path="/deductive-reasoning" element={
-              <RequireParticipantInfo>
-                <TaskWrapper>
-                  <DeductiveReasoningTask />
-                </TaskWrapper>
-              </RequireParticipantInfo>
-            } />
-            
-            <Route path="/deductive-reasoning/practice" element={
-              <RequireParticipantInfo>
-                <TaskWrapper>
-                  <DeductiveReasoningPractice />
-                </TaskWrapper>
-              </RequireParticipantInfo>
-            } />
-            
-            <Route path="/deductive-reasoning/task" element={
-              <RequireParticipantInfo>
-                <TaskWrapper>
-                  <DeductiveReasoningMainTask />
                 </TaskWrapper>
               </RequireParticipantInfo>
             } />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ShapeCounting.css';
 import { saveTaskResults } from '../../utils/taskResults';
@@ -30,20 +30,20 @@ const ShapeCountingMainTask = () => {
   const timersRef = useRef([]);
   
   // Level configuration
-  const levels = [
+  const levels = useMemo(() => [
     { level: 1, shapes: 4 },
     { level: 2, shapes: 6 },
     { level: 3, shapes: 8 },
     { level: 4, shapes: 10 },
     { level: 5, shapes: 12 },
     { level: 6, shapes: 0 }  // Debug level to test if level 5 gets captured
-  ];
+  ], []);
   
   // Set maximum attempts to 1
   const maxAttempts = 1;
   
   // Shapes for the task
-  const shapes = ['square', 'triangle', 'circle'];
+  const shapes = useMemo(() => ['square', 'triangle', 'circle'], []);
   
   // Clear all timers
   const clearAllTimers = useCallback(() => {
@@ -52,7 +52,7 @@ const ShapeCountingMainTask = () => {
   }, []);
   
   // Generate a sequence of random shapes based on current level
-  const generateSequence = () => {
+  const generateSequence = useCallback(() => {
     const currentLevelConfig = levels[currentLevel - 1];
     const sequenceLength = currentLevelConfig.shapes;
     
@@ -80,7 +80,44 @@ const ShapeCountingMainTask = () => {
     }
     
     return { sequence, counts };
-  };
+  }, [currentLevel, currentAttempt, shapes, levels]);
+
+  // Save results to centralized storage
+  const saveResultsToStorage = useCallback(() => {
+    try {
+      // Format results for CSV - simply use all level results since there's only one attempt per level
+      const processedResults = [...results].sort((a, b) => a.level - b.level);
+      
+      // Format results for the centralized storage system
+      const formattedResults = processedResults.map(result => ({
+        level: result.level,
+        shapeType: 'multiple',
+        correctAnswer: `Squares: ${result.correctCounts.squares}, Triangles: ${result.correctCounts.triangles}, Circles: ${result.correctCounts.circles}`,
+        answer: `Squares: ${result.userCounts.squares}, Triangles: ${result.userCounts.triangles}, Circles: ${result.userCounts.circles}`,
+        isCorrect: result.correct,
+        timestamp: result.timestamp,
+        // Add category scoring data
+        categoryScores: result.categoryScores || {
+          squaresCorrect: 0,
+          trianglesCorrect: 0,
+          circlesCorrect: 0,
+          totalCorrectCategories: 0,
+          totalCategories: 3
+        },
+        totalCorrectCategories: result.categoryScores ? result.categoryScores.totalCorrectCategories : 0,
+        totalCategories: result.categoryScores ? result.categoryScores.totalCategories : 3,
+        categoryAccuracy: result.categoryScores ? 
+          ((result.categoryScores.totalCorrectCategories / result.categoryScores.totalCategories) * 100).toFixed(2) + '%' : '0%'
+      }));
+      
+      // Save results using the utility
+      saveTaskResults('shapeCounting', formattedResults);
+      
+      console.log('Shape Counting results saved with category scoring:', formattedResults);
+    } catch (error) {
+      console.error('Error saving results:', error);
+    }
+  }, [results]);
   
   // Start showing the shapes
   const startSequence = useCallback(() => {
@@ -278,45 +315,9 @@ const ShapeCountingMainTask = () => {
   
   // Navigate to the next task (Counting Game)
   const handleNextTask = () => {
-    navigate('/counting-game');
+    navigate('/spatial-memory');
   };
-  
-  // Save results to centralized storage
-  const saveResultsToStorage = () => {
-    try {
-      // Format results for CSV - simply use all level results since there's only one attempt per level
-      const processedResults = [...results].sort((a, b) => a.level - b.level);
-      
-      // Format results for the centralized storage system
-      const formattedResults = processedResults.map(result => ({
-        level: result.level,
-        shapeType: 'multiple',
-        correctAnswer: `Squares: ${result.correctCounts.squares}, Triangles: ${result.correctCounts.triangles}, Circles: ${result.correctCounts.circles}`,
-        answer: `Squares: ${result.userCounts.squares}, Triangles: ${result.userCounts.triangles}, Circles: ${result.userCounts.circles}`,
-        isCorrect: result.correct,
-        timestamp: result.timestamp,
-        // Add category scoring data
-        categoryScores: result.categoryScores || {
-          squaresCorrect: 0,
-          trianglesCorrect: 0,
-          circlesCorrect: 0,
-          totalCorrectCategories: 0,
-          totalCategories: 3
-        },
-        totalCorrectCategories: result.categoryScores ? result.categoryScores.totalCorrectCategories : 0,
-        totalCategories: result.categoryScores ? result.categoryScores.totalCategories : 3,
-        categoryAccuracy: result.categoryScores ? 
-          ((result.categoryScores.totalCorrectCategories / result.categoryScores.totalCategories) * 100).toFixed(2) + '%' : '0%'
-      }));
-      
-      // Save results using the utility
-      saveTaskResults('shapeCounting', formattedResults);
-      
-      console.log('Shape Counting results saved with category scoring:', formattedResults);
-    } catch (error) {
-      console.error('Error saving results:', error);
-    }
-  };
+
   
   // Start task when component mounts
   useEffect(() => {
@@ -455,7 +456,7 @@ const ShapeCountingMainTask = () => {
           
           <div className="task-options">
             <button onClick={handleNextTask} className="next-task-button">
-              Next Task: Counting Game
+              Next Task: Spatial Memory
             </button>
           </div>
         </div>

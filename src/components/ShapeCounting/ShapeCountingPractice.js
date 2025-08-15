@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ShapeCounting.css';
 
@@ -31,7 +31,7 @@ const ShapeCountingPractice = () => {
   }, []);
   
   // Shapes for the practice
-  const shapes = ['square', 'triangle', 'circle'];
+  const shapes = useMemo(() => ['square', 'triangle', 'circle'], []);
   
   // Generate a sequence of random shapes
   const generateSequence = useCallback(() => {
