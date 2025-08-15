@@ -33,7 +33,6 @@ function RequireParticipantInfo({ children }) {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
   const location = useLocation();
-  const navigate = useNavigate();
   
   const checkAuthorization = useCallback(() => {
     const studentId = localStorage.getItem('studentId');

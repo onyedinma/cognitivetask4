@@ -485,9 +485,9 @@ export const exportAllTaskResults = () => {
           formatForCSV(squaresCorrect),
           formatForCSV(trianglesCorrect),
           formatForCSV(circlesCorrect),
-          formatForCSV(`=\"${totalCorrectCategories}/${totalCategories}\"`),
+          formatForCSV(`="${totalCorrectCategories}/${totalCategories}"`),
           formatForCSV(categoryAccuracy),
-          formatForCSV(`=\"${cumulativeCorrectCategories}/${cumulativeTotalCategories}\"`),
+          formatForCSV(`="${cumulativeCorrectCategories}/${cumulativeTotalCategories}"`),
           formatForCSV(cumulativePercentage)
         ]);
       });
